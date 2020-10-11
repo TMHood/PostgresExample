@@ -20,21 +20,27 @@ in server/database localhost/local:
 ```
     create user ucd;
     alter user ucd with password 'ucd';
-    create database springbootjpa;
+    create database ucd;
     grant all privileges on database ucd to ucd;
+    grant usage, create on schema ucd to ucd;
     
     create user ucd_user;
     alter user ucd_user with password 'ucd_user';
     grant usage on schema ucd to ucd_user;
 ```
 
-## 3. application.properties
-create application.properties in resources folder, as follows:
+## 3. application.yml
+create application.yml in resources folder, as follows:
 ```
-spring.datasource.url=jdbc:postgresql://localhost:5432/ucd
-spring.datasource.username=ucd_user
-spring.datasource.password=ucd_user
-spring.jpa.properties.hibernate.default_schema=ucd
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ucd
+    username: ucd_user
+    password: ucd_user
+  jpa:
+    properties:
+      hibernate:
+        default_schema: ucd
 ```
 application can now be run (though it does nothing)
 
@@ -128,12 +134,9 @@ public class UcdApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(UcdApplication.class, args);
-		System.out.println("now I'm here");
 
 		TestService service = context.getBean(TestService.class);
 		service.Insert();
-
-		System.out.println("now I'm there");
 
 		SpringApplication.exit(context, () -> 0);
 	}
