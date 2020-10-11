@@ -6,9 +6,4 @@ import sparrows.ucd.entities.PropertyEntity;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<PropertyEntity, Long> {
-//    Optional<PropertyEntity> findUniqueByName(String name);
-
-//    default boolean exists(String name) {
-//        return this.findUniqueByName(name).isPresent();
-//    }
 }
